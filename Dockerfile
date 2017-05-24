@@ -1,6 +1,8 @@
 FROM ubuntu:14.04
 
-MAINTAINER Norsk Nettarkiv
+LABEL maintainer "Alpeware <info@alpeware.com>"
+
+EXPOSE 9222
 
 RUN apt-get update -qqy \
   && apt-get -qqy install libnss3 libnss3-tools libfontconfig1 wget ca-certificates apt-transport-https inotify-tools \
@@ -15,7 +17,7 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
   && rm /etc/apt/sources.list.d/google-chrome.list \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
-EXPOSE 9222
+RUN google-chrome-unstable --version
 
 ADD start.sh import_cert.sh /usr/bin/
 
